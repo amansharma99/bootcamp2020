@@ -157,3 +157,4 @@ mysql> select o_id,s_name,c_name from orders,salesperson,customers where custome
 3 rows in set (0.00 sec)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+dsaacx
