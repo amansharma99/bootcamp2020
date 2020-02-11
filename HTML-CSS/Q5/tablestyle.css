@@ -1,0 +1,15 @@
+table,th{
+    background-color: darkslategray;
+    color: dodgerblue;
+    padding: 3px;
+    text-align: -moz-center;
+    border-collapse: separate;
+}
+td{
+    color: darkslategray;
+    background-color: blanchedalmond;
+    text-align: -moz-center;
+    padding: 3px;
+    border-collapse: collapse;
+
+}
