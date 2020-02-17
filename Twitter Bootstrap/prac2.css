@@ -1,0 +1,36 @@
+body
+{
+    background-color: #404040;
+}
+.col-10
+{
+    background-color: black;
+    width: 20px;
+    height: 20px;
+    padding: 30px;
+}
+section
+{
+    padding-bottom: 20px;
+}
+p
+{
+    padding: 5px;
+}
+hr
+{
+    width: 95%;
+    align: center;
+}
+a
+{
+    margin-top: 5px;
+}
+#left
+{
+    float: left;
+}
+#right
+{
+    float:right;
+}
