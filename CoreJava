@@ -1,0 +1,447 @@
+Q1. Write a program to replace a substring inside a string with other string ?
+
+public class Q1 {
+    public static void main(String args[]) {
+        String str="Hello World,My name is Aman Sharma";
+
+        System.out.println( str.replace( 'a','A' ) );
+
+        System.out.println( str.replaceFirst("Aman", "AMAN") );
+
+        System.out.println( str.replaceAll("Sharma", "SHARMA") );
+
+        System.out.println( str.replaceAll("Sharma", "SHARMA") );
+    }
+}
+====================================================================
+Q2. Write a program to find the number of occurrences of the duplicate words in a string and print them ?
+
+import java.util.Scanner;
+
+public class Q2 {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter String:");
+        String str=sc.nextLine();
+        String[] words = str.split(" ");
+        int count=0;
+        for (int i = 0; i < words.length; i++) {
+            count = 1;
+            for (int j = i + 1; j < words.length; j++) {
+                if (words[i].equals(words[j])) {
+                    count++;
+                    words[j]="0";
+                }
+            }
+            //Displays the duplicate word if count is greater than 1
+            if (count >1  && words[i]!="0")
+            {
+                System.out.println("Answer:");
+                System.out.println(words[i]);
+            }
+        }
+    }
+}
+
+===================================================================
+Q3. Write a program to find the number of occurrences of a character in a string without using loop?
+
+import java.util.Scanner;
+
+public class Q3 {
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter String:");
+        String str=sc.nextLine();
+        System.out.println("Enter char:");
+        String ch= sc.nextLine();
+        if(ch.length()==1){
+        int count = str.length() - str.replace(ch,"").length();
+        System.out.println("Number of occurances of "+ch+" in "+str+" = "+count);
+    }}
+}
+
+===================================================================
+Q4. Calculate the number & Percentage Of Lowercase Letters,Uppercase Letters, Digits And Other Special Characters In A String
+
+import java.text.*;
+import java.util.Scanner;
+
+public class Q4 {
+    public static void main(String[] args)
+    {
+        int uppercase=0;
+        int lowercase=0;
+        int specialchar=0;
+        int digits=0;
+        System.out.println("Enter String:");
+        Scanner sc=new Scanner(System.in);
+        String str=sc.nextLine();
+        int totalchar=str.length();
+        for(int i=0;i<str.length();i++)
+        {
+            char c=str.charAt(i);
+            if(Character.isUpperCase(c))
+                uppercase++;
+            else if(Character.isLowerCase(c))
+                lowercase++;
+            else if(Character.isDigit(c))
+                digits++;
+            else
+                specialchar++;
+        }
+        double upper=(uppercase*100.00)/totalchar;
+        double lower=(lowercase*100.00)/totalchar;
+        double digit=(digits*100.00)/totalchar;
+        double special=(specialchar*100.00)/totalchar;
+        System.out.println("Numbers of uppercase are: "+uppercase+"Percentage of lowercase are: "+upper);
+        System.out.println("Numbers of lowercase are: "+lowercase+"Percentage of lowercase are: "+lower);
+        System.out.println("Numbers of digits are: "+digits+"Percentage of digits are: "+digit);
+        System.out.println("Numbers of specialcharacter are: "+specialchar+"Percentage of special character are: "+special);
+    }
+}
+
+==================================================================
+Q5. Find common elements between two arrays.
+import java.util.Scanner;
+
+public class Q5 {
+    public static void main(String[] args)
+    {
+        Scanner s =new Scanner(System.in);
+        int n,m;
+        System.out.print("Enter no. of elements you want in first array:");
+        n = s.nextInt();
+        int a[] = new int[n];
+        System.out.println("Enter all the elements:");
+        for(int i = 0; i < n; i++)
+        {
+            a[i] = s.nextInt();
+        }
+        System.out.print("Enter no. of elements you want in second array:");
+        m = s.nextInt();
+        int b[] = new int[m];
+        System.out.println("Enter all the elements:");
+        for(int i = 0; i < m; i++)
+        {
+            b[i] = s.nextInt();
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(a[i]==b[j])
+                {
+                    System.out.println(" "+a[i]+" ");
+                    a[i]=0;
+                    b[j]=0;
+                }
+            }
+        }
+    }
+}
+
+================================================================
+Q6. There is an array with every element repeated twice except one. Find that element
+
+import java.util.Scanner;
+public class Q6 {
+    public static void main(String [] args)
+    {
+        int n;
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter no. of elements you want in array:");
+        n = s.nextInt();
+        int a[] = new int[n];
+        System.out.println("Enter "+n+" Elements:");
+        for(int i = 0; i < n; i++)
+        {
+            a[i] = s.nextInt();
+        }
+        for(int i=0;i<n;i++)
+        { int count=0;
+            for(int j=0;j<n;j++)
+            {
+                if(a[i]==a[j])
+                {
+                    count++;
+                }
+
+            }
+            if ((count==1))
+            {
+                System.out.println("Output:" +a[i]);
+                break;
+            }
+        }
+
+    }
+}
+
+====================================================================
+Q7. Write a program to print your Firstname,LastName & age using static block,static method & static variable respectively
+
+import java.util.Scanner;
+public class Q7{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your first name");
+        String first=sc.nextLine();
+        System.out.println("Enter your last name");
+        String last =sc.nextLine();
+        staticDemo sd = new staticDemo();
+        sd.showname(first,last);
+    }
+}
+class staticDemo{
+    static int age;  //Static Member
+    static String firstname="";
+    static  String lastname="";
+
+    static{    ///Static Block
+        age =21;
+
+    }
+    static void showname(String first,String last){   ///Static Method
+        firstname=first;
+        lastname=last;
+        System.out.println("Your first name is "+firstname);
+        System.out.println("Your Last name"+lastname);
+        System.out.println("Your age is "+age);
+
+    }
+}
+===================================================================
+Q8. Write a program to reverse a string and remove character from index 4 to index 9 from the reversed string using String Buffer
+
+import java.util.Scanner;
+public class Q8 {
+ public static void main(String[] args)
+ {
+     StringBuffer sbuffer = new StringBuffer();
+     Scanner input = new Scanner(System.in);
+     System.out.println("Enter a string");
+     sbuffer.append(input.nextLine());
+     sbuffer.reverse();
+     System.out.println(sbuffer);
+     sbuffer.delete(4, 9);
+     System.out.println(sbuffer);
+ }
+}
+
+===============================================================================
+Q9.Write a program to display values of enums using a constructor & getPrice() method (Example display house & their prices)
+
+enum House {
+    Castle(900),Apartment(2),Bungalow(50),TinyHome(15),MultiFamily(12);
+    private int price;
+    House(int p) {
+        price = p;
+    }
+    int getPrice() {
+        return price;
+    }
+}
+public class Q9 {
+    public static void main(String args[]){
+        System.out.println("All House prices:");
+        for (House h : House.values())
+            System.out.println(h + " costs " + h.getPrice() + " Thousand Euros");
+    }
+}
+===============================================================
+Q10.Write a single program for following operation using overloading
+  A) Adding 2 integer number
+  B) Adding 2 double
+  C) multiplying 2 float
+  D) multiplying 2 int
+  E) concate 2 string
+  F) Concate 3 String
+
+import java.util.Scanner;
+
+public class Q10 {
+    public static int overload(int x,int y)
+    {
+        System.out.println(x+y);
+        return x+y;
+    }
+    public static double overload(double x,double y)
+    {
+        System.out.println(x+y);
+       return x+y;
+    }
+    public static float overload(float x,float y)
+    {
+        System.out.println(x*y);
+        return x*y;
+    }
+    public static void overload()
+    {
+        int x,y;
+        Scanner s2=new Scanner(System.in);
+        System.out.println("Enter elements:");
+        x=s2.nextInt();
+        y=s2.nextInt();
+        System.out.println(x*y);
+    }
+    public static String overload(String a,String b)
+    {
+        System.out.println(a+b);
+        return a+b;
+    }
+    public static String overload(String a,String b,String c)
+    {
+        System.out.println(a+b+c);
+        return a+b+c;
+    }
+    public static void main(String[] agrs) {
+        int ch = 0;
+        String s[];
+        System.out.println("1.Adding Two Integers");
+        System.out.println("2.Adding Two Doubles");
+        System.out.println("3.Multiplying Two Floats");
+        System.out.println("4.Multiply two int");
+        System.out.println("5.Concate 2 Strings");
+        System.out.println("6.Concate 3 strings");
+        System.out.println("Enter your Choice");
+        Scanner sc=new Scanner(System.in);
+        ch=sc.nextInt();
+        switch (ch) {
+            case 1:
+                int x = 0, y = 0,z=0;
+                System.out.println("Enter Two Values");
+                Scanner s1 = new Scanner(System.in);
+                x = s1.nextInt();
+                y = s1.nextInt();
+                overload(x,y);
+                break;
+            case 2:
+                double a = 0, b = 0;
+                System.out.println("Enter Two Values");
+                Scanner s2 = new Scanner(System.in);
+                a = s2.nextDouble();
+                b = s2.nextDouble();
+                overload(a,b);
+                break;
+            case 3:
+                float c,d;
+                System.out.println("Enter Two Values");
+                Scanner s3 = new Scanner(System.in);
+                c = s3.nextFloat();
+                d = s3.nextFloat();
+                overload(c,d);
+                break;
+            case 4:
+                overload();
+                break;
+            case 5:
+                String S1,S2;
+                Scanner s4=new Scanner(System.in);
+                System.out.println("Enter Two String");
+                S1=s4.nextLine();
+                S2=s4.nextLine();
+                overload(S1,S2);
+                break;
+            case 6:
+                String S3,S4,S5;
+                Scanner s5=new Scanner(System.in);
+                System.out.println("Enter Three String");
+                S3=s5.nextLine();
+                S4=s5.nextLine();
+                S5=s5.nextLine();
+                overload(S3,S4,S5);
+                break;
+            default:
+                System.out.println("Wrong Choice");
+        }
+    }
+}
+=====================================================
+Q11.Create 3 sub class of bank SBI,BOI,ICICI all 4 should have method called getDetails which provide there specific details like rateofinterest etc,print details of every banks
+abstract class Bank
+{
+    String name="";
+    String type="";
+    float roi;
+    int accno;
+    int branches;
+    Bank()
+    {
+
+    }
+    Bank(String name,float r,int b,int acc)
+    {
+        this.name=name;
+        this.roi=r;
+        this.branches=b;
+        this.accno=acc;
+    }
+    public void getDetails()
+    {
+        System.out.println("Name: "+name);
+        System.out.println("Type: "+type);
+        System.out.println("Rate: "+roi);
+        System.out.println("Account No:"+accno);
+    }
+
+}
+class SBI extends Bank
+{
+    SBI()
+    {
+        name="State Bank of India";
+        type="govt.";
+        roi=4.5f;
+        accno=2323;
+    }
+    public void getDetails()
+    {
+        super.getDetails();
+    }
+}
+class BOI extends Bank
+{
+    String slogan;
+    BOI()
+    {
+        name="Bank Of India";
+        type="govt.";
+        roi=4.4f;
+        accno=232;
+    }
+    public void getDetails()
+    {
+        super.getDetails();
+    }
+}
+class ICICI extends Bank
+{
+    String facility;
+    ICICI()
+    {
+        name="ICICI";
+        type="private";
+        roi=4.6f;
+        accno=454;
+
+    }
+
+    public void getDetails()
+    {
+        super.getDetails();
+    }
+}
+class Q11
+{
+    public static void main(String[] args)
+    {
+        SBI sbi=new SBI();
+        BOI boi=new BOI();
+        ICICI i=new ICICI();
+        sbi.getDetails();
+        boi.getDetails();
+        i.getDetails();
+    }
+}
