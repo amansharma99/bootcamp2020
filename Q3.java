@@ -1,15 +1,23 @@
-import java.util.Scanner;
-
 public class Q3 {
-    public static void main(String[] args)
+
+    static void demo() throws NoClassDefFoundError
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter String:");
-        String str=sc.nextLine();
-        System.out.println("Enter char:");
-        String ch= sc.nextLine();
-        if(ch.length()==1){
-        int count = str.length() - str.replace(ch,"").length();
-        System.out.println("Number of occurances of "+ch+" in "+str+" = "+count);
-    }}
+        throw new NoClassDefFoundError("Exception");
+    }
+    public static void main(String args[]) {
+        try
+        {
+            demo();//This gives NoClassDefFoundError
+            java.lang.Class.forName("");//This gives ClassNotFoundExecption
+        }
+        catch (ClassNotFoundException ex)
+        {
+
+            System.out.println("This is a ClassNotFoundException Exception");
+        }
+        catch(NoClassDefFoundError ex)
+        {
+            System.out.println("This is a NoClassDefFoundError");
+        }
+    }
 }

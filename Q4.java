@@ -1,36 +1,34 @@
-import java.text.*;
-import java.util.Scanner;
+class Singleton
+{
+    private static Singleton single_instance = null;
+    public String s;
 
-public class Q4 {
-    public static void main(String[] args)
+    private Singleton()
     {
-        int uppercase=0;
-        int lowercase=0;
-        int specialchar=0;
-        int digits=0;
-        System.out.println("Enter String:");
-        Scanner sc=new Scanner(System.in);
-        String str=sc.nextLine();
-        int totalchar=str.length();
-        for(int i=0;i<str.length();i++)
-        {
-            char c=str.charAt(i);
-            if(Character.isUpperCase(c))
-                uppercase++;
-            else if(Character.isLowerCase(c))
-                lowercase++;
-            else if(Character.isDigit(c))
-                digits++;
-            else
-                specialchar++;
-        }
-        double upper=(uppercase*100.00)/totalchar;
-        double lower=(lowercase*100.00)/totalchar;
-        double digit=(digits*100.00)/totalchar;
-        double special=(specialchar*100.00)/totalchar;
-        System.out.println("Numbers of uppercase are: "+uppercase+"Percentage of lowercase are: "+upper);
-        System.out.println("Numbers of lowercase are: "+lowercase+"Percentage of lowercase are: "+lower);
-        System.out.println("Numbers of digits are: "+digits+"Percentage of digits are: "+digit);
-        System.out.println("Numbers of specialcharacter are: "+specialchar+"Percentage of special character are: "+special);
+        s = "Hello I am a string part of Singleton class";
+    }
+    public static Singleton getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new Singleton();
+        return single_instance;
+    }
+}
+
+// Driver Class
+public class Q4
+{
+    public static void main(String args[])
+    {
+        // instantiating Singleton class with variable x
+        Singleton x = Singleton.getInstance();
+        // instantiating Singleton class with variable y
+        Singleton y = Singleton.getInstance();
+        // instantiating Singleton class with variable z
+        Singleton z = Singleton.getInstance();
+        System.out.println("String from x is " + x.s);
+        System.out.println("String from y is " + y.s);
+        System.out.println("String from z is " + z.s);
+        System.out.println("\n");
     }
 }

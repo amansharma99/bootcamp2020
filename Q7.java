@@ -1,30 +1,33 @@
+
 import java.util.Scanner;
-public class Q7{
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your first name");
-        String first=sc.nextLine();
-        System.out.println("Enter your last name");
-        String last =sc.nextLine();
-        staticDemo sd = new staticDemo();
-        sd.showname(first,last);
-    }
-}
-class staticDemo{
-    static int age;  //Static Member
-    static String firstname="";
-    static  String lastname="";
 
-    static{    ///Static Block
-        age =21;
+public class Q7
+{
 
+    static void ConvertSectoDay(int n)
+    {
+        int day = n / (24 * 3600);
+
+        n = n % (24 * 3600);
+        int hour = n / 3600;
+
+        n %= 3600;
+        int minutes = n / 60 ;
+
+        n %= 60;
+        int seconds = n;
+
+        System.out.println( day + " " + "days " + hour
+                + " " + "hours " + minutes + " "
+                + "minutes " + seconds + " "
+                + "seconds ");
     }
-    static void showname(String first,String last){   ///Static Method
-        firstname=first;
-        lastname=last;
-        System.out.println("Your first name is "+firstname);
-        System.out.println("Your Last name"+lastname);
-        System.out.println("Your age is "+age);
+    public static void main (String[] args)
+    {
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Enter Value in seconds:");
+        int n=sc.nextInt();
+        ConvertSectoDay(n);
 
     }
 }
