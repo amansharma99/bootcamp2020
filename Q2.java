@@ -1,34 +1,47 @@
-import java.util.Scanner;
+package Threading;
 
 public class Q2 {
-
     public static void main(String[] args) {
-
-        Scanner sc =new Scanner(System.in);
-        System.out.println("Enter String: ");
-        String str=sc.nextLine();
-        int j=0;
-        char temp=0;
-        char[] chars = str.toCharArray();
-
-        for (int i = 0; i <chars.length; i++) {
-
-            for ( j = 0; j < chars.length; j++) {
-
-                if(chars[j]>chars[i]){
-                    temp=chars[i];
-                    chars[i]=chars[j];
-                    chars[j]=temp;
-                }
-
-            }
-
-        }
-
-        for(int k=0;k<chars.length;k++){
-            System.out.print(" "+chars[k]);
-        }
-
+        usingthread th= new usingthread();
+        usinginterface th2=new usinginterface();
+        th.start();
+        Thread t2 = new Thread(new usinginterface());
+        t2.start();
     }
-
+}
+class usingthread extends Thread
+{
+    public void run()
+    {
+        for(int i=0;i<10;i++)
+        {
+            System.out.println("Hello"+i);
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+    }
+}
+class usinginterface implements Runnable
+{
+    public void run()
+    {
+        for(int i=0;i<10;i++)
+        {
+            System.out.println("World"+i);
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+    }
 }

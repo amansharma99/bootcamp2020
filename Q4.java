@@ -1,34 +1,98 @@
-class Singleton
-{
-    private static Singleton single_instance = null;
-    public String s;
+package Threading;
 
-    private Singleton()
-    {
-        s = "Hello I am a string part of Singleton class";
-    }
-    public static Singleton getInstance()
-    {
-        if (single_instance == null)
-            single_instance = new Singleton();
-        return single_instance;
-    }
-}
+import java.util.Scanner;
 
-// Driver Class
-public class Q4
-{
-    public static void main(String args[])
+public class Q4 {
+
+    boolean odd;
+    int count = 0;
+    int MAX;
+
+    public void printEven()
     {
-        // instantiating Singleton class with variable x
-        Singleton x = Singleton.getInstance();
-        // instantiating Singleton class with variable y
-        Singleton y = Singleton.getInstance();
-        // instantiating Singleton class with variable z
-        Singleton z = Singleton.getInstance();
-        System.out.println("String from x is " + x.s);
-        System.out.println("String from y is " + y.s);
-        System.out.println("String from z is " + z.s);
-        System.out.println("\n");
+        synchronized (this)
+        {
+            while (count < MAX)
+            {
+
+                while (!odd) {
+                    try
+                    {
+                        System.out.println(" "+count);
+                        wait();
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                count++;
+                odd = false;
+                notify();
+            }
+        }
+    }
+
+    public void printOdd() {
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+        synchronized (this)
+        {
+            while (count < MAX)
+            {
+
+                while (odd) {
+                    try {
+                        System.out.println(" " + count);
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                count++;
+                odd = true;
+                notify();
+
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Q4 oep = new Q4();
+        oep.odd = true;
+        System.out.println("Enter a number:");
+        Scanner sc =new Scanner(System.in);
+        oep.MAX=sc.nextInt()+1;
+        Thread t1 = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                oep.printOdd();
+
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                oep.printEven();
+
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }
