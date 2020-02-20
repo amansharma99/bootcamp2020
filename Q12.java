@@ -46,3 +46,12 @@ class Child extends Parent {
         System.out.println("instance - child");
     }
 }
+/*static - grandparent
+static - parent
+static - child
+instance - grandparent
+constructor - grandparent
+instance - parent
+constructor - parent
+instance - child
+constructor - child*/
