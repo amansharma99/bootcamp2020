@@ -1,0 +1,671 @@
+1. Create Java classes having suitable attributes for Library management system.Use OOPs concepts in your design.Also try to use interfaces and abstract classes. 
+
+
+abstract class Abstract
+{
+    abstract void setDetails();
+    abstract void getDetails();
+}
+interface lib
+{
+    public void getDetail();
+    public void setDetail();
+}
+class Library extends Abstract
+{
+    public String Library_Name;
+    public int Library_id;
+
+    @Override
+    void setDetails()
+    {
+        Library_Name="THE ROYALLIBRARY";
+        Library_id=1001;
+    }
+
+    @Override
+    void getDetails()
+    {
+        System.out.println(Library_Name);
+        System.out.println(Library_id);
+    }
+}
+class Librarian implements lib
+{
+    public String Librarian_Name;
+    public int Librarian_id;
+    public String Librarian_address;
+
+    @Override
+    public void setDetail() {
+        Librarian_Name="Aman Sharma";
+        Librarian_id=3990;
+        Librarian_address="Laxmi Nagar East Dellhi";
+
+    }
+    @Override
+    public void getDetail() {
+        System.out.println(Librarian_Name);
+        System.out.println(Librarian_id);
+        System.out.println(Librarian_address);
+
+    }
+}
+class user extends Abstract
+{
+    public String user_name;
+    public int user_id;
+    public String user_address;
+    @Override
+    public void setDetails() {
+        user_name="Manish";
+        user_id=4125;
+        user_address="Dwarka West Delhi";
+
+    }
+    @Override
+    public void getDetails() {
+        System.out.println(user_name);
+        System.out.println(user_id);
+        System.out.println(user_address);
+
+    }
+}
+class Book implements lib
+{
+    public String Book_Name;
+    public String Book_Author;
+    public int Book_Id;
+    @Override
+    public void setDetail() {
+        Book_Name="Advance Java";
+        Book_Author="Robert Downey Jr.";
+        Book_Id=989;
+
+    }
+    @Override
+    public void getDetail() {
+        System.out.println(Book_Name);
+        System.out.println(Book_Id);
+        System.out.println(Book_Author);
+
+    }
+}
+public class Q1
+{
+    public static void main(String arg[])
+    {
+        Library l=new Library();
+        Librarian ll=new Librarian();
+        user u=new  user();
+        Book b=new Book();
+        System.out.println("***LIBRARY****");
+        l.setDetails();
+        l.getDetails();
+        System.out.println("*****LIBRARIAN*****");
+        ll.setDetail();
+        ll.getDetail();
+        System.out.println("*****USER****");
+        u.setDetails();
+        u.getDetails();
+        System.out.println("****BOOK***");
+        b.setDetail();
+        b.getDetail();
+    }
+}
+====================================================================
+2. WAP to sorting string without using string Methods?.
+
+
+import java.util.Scanner;
+
+public class Q2 {
+
+    public static void main(String[] args) {
+
+        Scanner sc =new Scanner(System.in);
+        System.out.println("Enter String: ");
+        String str=sc.nextLine();
+        int j=0;
+        char temp=0;
+        char[] chars = str.toCharArray();
+
+        for (int i = 0; i <chars.length; i++) {
+
+            for ( j = 0; j < chars.length; j++) {
+
+                if(chars[j]>chars[i]){
+                    temp=chars[i];
+                    chars[i]=chars[j];
+                    chars[j]=temp;
+                }
+
+            }
+
+        }
+
+        for(int k=0;k<chars.length;k++){
+            System.out.print(" "+chars[k]);
+        }
+
+    }
+
+}
+====================================================================
+3. WAP to produce NoClassDefFoundError and ClassNotFoundException exception.
+
+========================
+
+public class Q3 {
+
+    static void demo() throws NoClassDefFoundError
+    {
+        throw new NoClassDefFoundError("Exception");
+    }
+    public static void main(String args[]) {
+        try
+        {
+            demo();//This gives NoClassDefFoundError
+            java.lang.Class.forName("");//This gives ClassNotFoundExecption
+        }
+        catch (ClassNotFoundException ex)
+        {
+
+            System.out.println("This is a ClassNotFoundException Exception");
+        }
+        catch(NoClassDefFoundError ex)
+        {
+            System.out.println("This is a NoClassDefFoundError");
+        }
+    }
+}
+==============================================
+4. WAP to create singleton class.
+
+====================class Singleton
+{
+    private static Singleton single_instance = null;
+    public String s;
+
+    private Singleton()
+    {
+        s = "Hello I am a string part of Singleton class";
+    }
+    public static Singleton getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new Singleton();
+        return single_instance;
+    }
+}
+
+// Driver Class
+public class Q4
+{
+    public static void main(String args[])
+    {
+        // instantiating Singleton class with variable x
+        Singleton x = Singleton.getInstance();
+        // instantiating Singleton class with variable y
+        Singleton y = Singleton.getInstance();
+        // instantiating Singleton class with variable z
+        Singleton z = Singleton.getInstance();
+        System.out.println("String from x is " + x.s);
+        System.out.println("String from y is " + y.s);
+        System.out.println("String from z is " + z.s);
+        System.out.println("\n");
+    }
+}
+=================================================
+5. WAP to show object cloning in java using cloneable and copy constructor both.
+class Q5 implements Cloneable{
+    int rollno;
+    String name;
+
+    FifthQues(int rollno,String name){
+        this.rollno=rollno;
+        this.name=name;
+    }
+
+    public Object clone()throws CloneNotSupportedException{
+        return super.clone();
+    }
+
+    public static void main(String args[]){
+        try{
+            FifthQues s1=new FifthQues(12,"Aman");
+
+            FifthQues s2=(FifthQues)s1.clone();
+            FifthQues s3= s2;
+
+            System.out.println(s1.rollno+" "+s1.name);
+            System.out.println(s2.rollno+" "+s2.name);
+            System.out.println(s3.rollno+" "+s3.name);
+
+        }catch(CloneNotSupportedException c){}
+
+    }
+}
+=========================================================================
+6. WAP showing try, multi-catch and finally blocks.
+
+public class Q6 {
+
+    public static void main(String args[]) {
+
+        int a[] = new int[2];
+        a[0]=2;
+        a[1]=1;
+        try
+        {
+            System.out.println("Access element three :" + a[3]);
+            a[0]=a[0]/0;
+        }
+        catch (ArrayIndexOutOfBoundsException e1)
+        {
+            System.out.println("Exception thrown From first catch block  :" + e1);
+        }
+        catch(ArithmeticException e2)
+        {
+            System.out.println("Exception thrown From second catch block  :" + e2);
+        }
+        finally
+        {
+            System.out.println("The finally statement is executed");
+        }
+    }
+}
+=============================================================
+7. WAP to convert seconds into days, hours, minutes and seconds.
+import java.util.Scanner;
+
+public class Q7
+{
+
+    static void ConvertSectoDay(int n)
+    {
+        int day = n / (24 * 3600);
+
+        n = n % (24 * 3600);
+        int hour = n / 3600;
+
+        n %= 3600;
+        int minutes = n / 60 ;
+
+        n %= 60;
+        int seconds = n;
+
+        System.out.println( day + " " + "days " + hour
+                + " " + "hours " + minutes + " "
+                + "minutes " + seconds + " "
+                + "seconds ");
+    }
+    public static void main (String[] args)
+    {
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Enter Value in seconds:");
+        int n=sc.nextInt();
+        ConvertSectoDay(n);
+
+    }
+}
+================================================================
+8. WAP to read words from the keyboard until the word done is entered. For each word except done, report whether its first character is equal   to  its last character. For the required loop, use a 
+a)while statement 
+b)do-while statement
+
+import java.util.Scanner;
+
+/*public class Q8
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        String str="";
+        System.out.println("Enter String");
+        while(!(str=sc.next()).equals("done"))
+        {
+            if(str.charAt(0)==str.charAt(str.length()-1))
+            {
+                System.out.println("First and Last char of "+str+" is equal");
+            }
+            else
+                {
+                    System.out.println("First and Last char of "+str+" is not equal");
+            }
+        }
+    }
+}*/
+
+
+
+public class Q8
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        String str="";
+        System.out.println("Enter String");
+        str=sc.next();
+        do
+        {
+            if(str.charAt(0)==str.charAt(str.length()-1))
+            {
+                System.out.println("First and Last char of "+str+" is equal");
+            }
+            else
+            {
+                System.out.println("First and Last char of "+str+" is not equal");
+            }
+        }
+        while(!(str=sc.next()).equals("done"));
+
+    }
+=================================================================
+9.  Design classes having attributes for furniture where there are wooden chairs and tables, metal chairs and tables. There are stress and fire tests for each products.
+
+abstract class furniture {
+    public abstract boolean checkStress();
+    public abstract boolean checkfire();
+
+}
+class table extends furniture{
+    String type;
+    boolean fire;
+    boolean stress;
+
+    public String getType() {
+        return type;
+    }
+
+    public table(String t, boolean f, boolean s)
+    {
+        this.type=t;
+        this.fire=f;
+        this.stress=s;
+    }
+    public boolean isFire() {
+        return fire;
+    }
+
+    public boolean isStress() {
+        return stress;
+    }
+    @Override
+    public boolean checkStress()
+    {
+        return stress;
+    }
+
+    @Override
+    public boolean checkfire() {
+        return fire;
+    }
+}
+class chair extends furniture{
+    String type;
+    boolean fire;
+    boolean stress;
+
+    public String getType() {
+        return type;
+    }
+
+    public chair(String t, boolean f, boolean s)
+    {
+        this.type=t;
+        this.fire=f;
+        this.stress=s;
+    }
+    public boolean isFire() {
+        return fire;
+    }
+
+    public boolean isStress() {
+        return stress;
+    }
+    @Override
+    public boolean checkStress()
+    {
+        return stress;
+    }
+
+    @Override
+    public boolean checkfire() {
+        return fire;
+    }
+}
+public class Q9 {
+    public static void main(String[] args) {
+        chair ch = new chair("wooden", true, true);
+        table tb = new table("metal", true, true);
+        System.out.println("Chair");
+        System.out.println("Type:"+ch.type);
+        System.out.println("Stress resistant:"+ch.checkStress());
+        System.out.println("Fire Resistant:"+ch.checkfire());
+        System.out.println("*********************************");
+        System.out.println("Table");
+        System.out.println("Type:"+tb.type);
+        System.out.println("Fire Resistant"+tb.checkfire());
+        System.out.println("Stress Resistant"+tb.checkStress());
+    }
+}
+==============================================
+10. Design classes having attributes and method(only skeleton) for a coffee shop. There are three different actors in our scenario and i have listed the different actions they do also below
+
+* Customer
+  - Pays the cash to the cashier and places his order, get a token number back
+  - Waits for the intimation that order for his token is ready
+  - Upon intimation/notification he collects the coffee and enjoys his drink
+  ( Assumption:  Customer waits till the coffee is done, he wont timeout and cancel the order. Customer always likes the drink served. Exceptions like he not liking his coffee, he getting wrong coffee are not considered to keep the design simple.)
+
+* Cashier
+  - Takes an order and payment from the customer
+  - Upon payment, creates an order and places it into the order queue
+  - Intimates the customer that he has to wait for his token and gives him his token
+  ( Assumption: Token returned to the customer is the order id. Order queue is unlimited. With a simple modification, we can design for a limited queue size)
+
+* Barista
+ - Gets the next order from the queue
+ - Prepares the coffee
+ - Places the coffee in the completed order queue
+ - Places a notification that order for token is ready
+
+import java.util.*;
+class Orders {
+    HashMap<String,Double> order = new HashMap<String, Double>();
+    List<String> completedorder = new ArrayList<String>();
+    Queue<String> queue = new PriorityQueue<String>();
+
+
+    void addorder(String orderid,double amount){
+        order.put(orderid,amount);
+        System.out.println("order is added");
+    }
+    void removeorder(String orderid){
+        order.remove(orderid);
+        System.out.println("Order is removed");
+    }
+    void completeorder(String orderid){
+        completedorder.add(orderid);
+        System.out.println("order is completed");
+    }
+}
+class Customer {   // this class is used to maintain customer details
+    private String name;
+    private String token;
+    Cashier cashier;
+    double amount;
+    String orderid;
+    String customername;
+
+    void placeOrder() {
+        token = cashier.AcceptOrderAndAddCustomerToCustomerList(customername,orderid,amount);
+        System.out.println("This is the order token: " + token);
+    }
+    boolean waitingState(){
+        System.out.println("Customer" + this.name + "is waiting");
+        return true;
+    }
+
+    boolean drinkingState() {
+        System.out.println("Customer " + this.name + " has collected coffee");
+        return true;
+    }
+}
+
+
+class Cashier extends Orders {
+    String cashiername;
+    List<String> customerList = new ArrayList<String>();
+
+    String AcceptOrderAndAddCustomerToCustomerList(String customername,String orderid,double amount){
+        addorder(orderid,amount);
+        customerList.add(customername);
+        System.out.println("Order accepted");
+        return "token";
+    }
+    void addordertoorderqueue(String orderid){
+        queue.add(orderid);
+    }
+}
+//this class is used to maintain Barista activity
+class Barista extends Orders{
+    String Baristaname;
+    String ordertobeprepared;
+    Cashier cash= new Cashier();
+    void Cofeeprepared(){
+        completeorder("Coffee");
+    }
+    void orderidReady(String token){
+        System.out.println("order for"+token+"is ready");
+    }
+    void getnextorderfromorderqueue(){
+        ordertobeprepared=queue.remove();
+    }
+}
+class Q10{  //to perforn different operations
+public static void main(String[] args){
+
+        }
+        }
+================================================================
+11. Convert the following code so that it uses nested while statements instead of for statements: 
+    int s = 0; 
+    int t = 1; 
+    for (int i = 0; i < 10; i++) 
+    { 
+    s = s + i; 
+    for (int j = i; j > 0; j−−) 
+    { 
+    t = t * (j - i); 
+    } 
+    s = s * t; 
+    System.out.println("T is " + t); 
+    } 
+    System.out.println("S is " + s);
+
+
+public class Q11{
+    public static void main(String[] args) {
+        int s = 0;
+        int t = 1;
+        int i=0,j=0;
+        //for (int i = 0; i < 10; i++)
+        while(i <10)
+        {
+            j=i;
+            s = s + i;
+            //for (int j = i; j > 0; j−−)
+            while( j > 0)
+            {
+                t = t * (j - i);
+                j--;
+            }
+            s = s * t;
+            System.out.println("T is " + t);
+            i++;
+        }
+        System.out.println("S is " + s);
+    }
+}
+===============================================================
+12.What will be the  output on new Child(); ? 
+    class Parent extends Grandparent {
+       
+        {
+        System.out.println("instance - parent");
+        }
+
+        public Parent() {
+        System.out.println("constructor - parent");
+        }
+
+        static {
+        System.out.println("static - parent");
+        }
+    }
+
+    class Grandparent {
+      
+        static {
+        System.out.println("static - grandparent");
+        }
+
+        {
+        System.out.println("instance - grandparent");
+        }
+
+        public Grandparent() {
+        System.out.println("constructor - grandparent");
+        }
+    }
+
+    class Child extends Parent {
+
+        public Child() {
+        System.out.println("constructor - child");
+        }
+
+        static {
+        System.out.println("static - child");
+        }
+
+        {
+        System.out.println("instance - child");
+        }
+    }
+/*static - grandparent
+static - parent
+static - child
+instance - grandparent
+constructor - grandparent
+instance - parent
+constructor - parent
+instance - child
+constructor - child*/
+======================================================================================
+Q13. Create a custom exception that do not have any stack trace.
+
+
+import java.util.Scanner;
+class CustomException extends Exception{
+    CustomException(String msg){
+        super(msg,null,true,false);
+    }
+}
+public class Q13{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter value greater than 1000:");
+        int num = sc.nextInt();
+        try{
+            if(num < 1000){
+                throw new CustomException("Exception entered number is less than 1000");
+            }
+        }
+        catch(CustomException e){
+            e.printStackTrace();
+        }
+    }
+}
