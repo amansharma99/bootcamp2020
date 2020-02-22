@@ -1,0 +1,558 @@
+
+ Q1 Write a programe do to demonstrate the use of volatile keyword.
+
+package Threading;
+
+import java.util.Scanner;
+
+class run extends Thread
+{
+ private volatile boolean running =true;
+ public void run()
+ {
+     while(running)
+     {
+         System.out.println("Hello World");
+         try
+         {
+             Thread.sleep(1000);
+         }
+         catch(InterruptedException ex)
+         {
+             ex.printStackTrace();
+         }
+     }
+ }
+ public void shutdown()
+ {
+     running=false;
+ }
+}
+public class Q1
+{
+    public static void main(String[] args) {
+        run r=new run();
+        r.start();
+        System.out.println("Press Any key to stop...");
+        Scanner sc=new Scanner(System.in);
+        sc.nextLine();
+        r.shutdown();
+        System.out.println("Task Finished");
+    }
+}
+
+=============================================================================================================
+ Q2 Write a program to create a thread using Thread class and Runnable interface each.
+
+package Threading;
+
+public class Q2 {
+    public static void main(String[] args) {
+        usingthread th= new usingthread();
+        usinginterface th2=new usinginterface();
+        th.start();
+        Thread t2 = new Thread(new usinginterface());
+        t2.start();
+    }
+}
+class usingthread extends Thread
+{
+    public void run()
+    {
+        for(int i=0;i<10;i++)
+        {
+            System.out.println("Hello"+i);
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+    }
+}
+class usinginterface implements Runnable
+{
+    public void run()
+    {
+        for(int i=0;i<10;i++)
+        {
+            System.out.println("World"+i);
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+    }
+}
+
+=======================================================================================================
+ Q3 Write a program using synchronization block and synchronization method
+
+
+package Threading;
+
+import java.util.Scanner;
+
+class Line {
+
+    ////Synchronized Method
+    synchronized public void getLine()
+    {
+            for (int i = 0; i < 3; i++) {
+                System.out.println(i);
+                try {
+                    Thread.sleep(400);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        System.out.println("End of Synchronized Method");
+    }
+
+    ////Synchronized Block
+    /*public void getLine() {
+        synchronized (this) {
+            for (int i = 0; i < 4; i++) {
+                System.out.println(i);
+                try {
+                    Thread.sleep(400);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+            System.out.println("End of Synchronized BLock");
+        }
+    }*/
+}
+
+class Th extends Thread
+{
+
+    Line line;
+
+    Th(Line line)
+    {
+        this.line = line;
+    }
+
+    @Override
+    public void run()
+    {
+        line.getLine();
+    }
+}
+public class Q3
+{
+    public static void main(String[] args) {
+        Line obj = new Line();
+        Th th1=new Th(obj);
+        Th th2=new Th(obj);
+        th1.start();
+        th2.start();
+    }
+}
+
+
+============================================================================================================
+ Q4 Write a program to create a Thread pool of 2 threads where one Thread will print even numbers and other will print odd numbers.
+
+package Threading;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+public class Q4 {
+
+    public static int number;
+    public static void main(String[] args){
+        final int max = 10;
+
+        Executor executor = Executors.newFixedThreadPool(2);
+
+        final Object lock = new Object();
+
+        executor.execute(new Runnable() {
+            @Override
+            public synchronized void run() {
+                while (number < max) {
+                    if (number % 2 == 0) {
+                        number = number+1;
+                        System.out.println(Thread.currentThread().getName()+" "+number+" ");
+                        synchronized(lock){
+                            lock.notify();
+                        }
+                    }else{
+                        synchronized(lock){
+                            try {
+                                lock.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        executor.execute(new Runnable() {
+            @Override
+            public synchronized void run() {
+                try {
+                    Thread.sleep(500);
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                while (number < max) {
+                    if (number% 2 != 0) {
+                        number++;
+                        System.out.println(Thread.currentThread().getName()+" "+number+" ");
+
+                        synchronized(lock){
+                            lock.notify();
+                        }
+                    }else{
+                        synchronized(lock){
+                            try {
+                                lock.wait();
+                            } catch (InterruptedException e) {
+
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        do {
+            try {
+                Thread.currentThread().sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } while (number!= max);
+        System.out.println("THE END");
+    }
+}
+=============================================================================================================
+ Q5 Write a program to demonstrate wait and notify methods.
+
+package Threading;
+public class Q5 {
+    public static void main(String[] args) throws InterruptedException {
+        Sum s1=new Sum();
+        Thread t=new Thread(s1);
+        t.start();
+        synchronized (t){
+            try{
+                System.out.println("wait till Sum class finishes");
+                t.wait();
+                Thread.sleep(400);
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+        System.out.println("total is: "+s1.sum);
+    }
+
+}
+class Sum implements Runnable{
+    int sum=0;
+    @Override
+    public void run() {
+        synchronized (this){
+            for(int i=0;i<100;i++)
+                sum+=i;
+            notify();
+        }
+    }
+}
+==========================================================================================================
+ Q6 Write a program to demonstrate sleep and join methods.
+package Threading;
+public class Q6 {
+    public static void main(String[] args) {
+        SleepClass sc1=new SleepClass();
+        SleepClass sc2=new SleepClass();
+        sc1.start();;
+        sc2.start();
+    }
+}
+class SleepClass extends Thread{
+    @Override
+    public void run() {
+        SleepClass sc=new SleepClass();
+        try{
+            for(int i=0;i<10;i++){
+                System.out.println("Thread name: "+sc.getName()+" "+i);
+                sc.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+}
+==================================================================================================
+ Q7 Run a task with the help of callable and store it's result in the Future.
+package Threading;
+
+import java.util.concurrent.*;
+
+public class Q7 {
+
+    public static void main(String... args) throws ExecutionException, InterruptedException {
+
+        // creating thread pool to execute task which implements Callable
+        ExecutorService es = Executors.newSingleThreadExecutor();
+
+        System.out.println("submitted callable task to calculate factorial of 10");
+        Future result10 = es.submit(new FactorialCalculator(10));
+
+        System.out.println("submitted callable task to calculate factorial of 15");
+        Future result15 = es.submit(new FactorialCalculator(15));
+
+        System.out.println("submitted callable task to calculate factorial of 20");
+        Future result20 = es.submit(new FactorialCalculator(20));
+
+        System.out.println("Calling get method of Future to fetch result of factorial 10");
+        long factorialof10 = (long) result10.get();
+        System.out.println("factorial of 10 is : " + factorialof10);
+
+        System.out.println("Calling get method of Future to get result of factorial 15");
+        long factorialof15 = (long)result15.get();
+        System.out.println("factorial of 15 is : " + factorialof15);
+
+        System.out.println("Calling get method of Future to get result of factorial 20");
+        long factorialof20 = (long)result20.get();
+        System.out.println("factorial of 20 is : " + factorialof20);
+
+    }
+
+}
+
+class FactorialCalculator implements Callable<Long> {
+    private int number;
+
+    public FactorialCalculator(int number){
+        this.number = number;
+    }
+
+    @Override
+    public Long call() throws InterruptedException {
+        return factorial(number);
+    }
+
+    private long factorial(int n) throws InterruptedException {
+        long result = 1;
+        while (n != 0) {
+            result = n * result;
+            n = n - 1;
+            Thread.sleep(100);
+        }
+
+        return result;
+    }
+
+}
+
+
+====================================================================================================
+ Q8 Write a program to demonstrate the use of semaphore
+package Threading;
+
+import java.util.concurrent.Semaphore;
+
+public class Q8 {
+
+    // max 4 people
+    static Semaphore semaphore = new Semaphore(4);
+
+    static class MyATMThread extends Thread {
+
+        String name = "";
+
+        MyATMThread(String name) {
+            this.name = name;
+        }
+
+        public void run() {
+            try {
+                System.out.println(name + " : acquiring lock...");
+                System.out.println(name + " : available Semaphore permits now: "
+                        + semaphore.availablePermits());
+
+                semaphore.acquire();
+                System.out.println(name + " : got the permit!");
+
+                try {
+
+                    for (int i = 1; i <= 5; i++) {
+
+                        System.out.println(name + " : is performing operation " + i
+                                + ", available Semaphore permits : "
+                                + semaphore.availablePermits());
+
+                        // sleep 1 second
+                        Thread.sleep(1000);
+
+                    }
+
+                } finally {
+
+                    // calling release() after a successful acquire()
+                    System.out.println(name + " : releasing lock...");
+                    semaphore.release();
+                    System.out.println(name + " : available Semaphore permits now: "
+                            + semaphore.availablePermits());
+
+                }
+
+            } catch (InterruptedException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Total available Semaphore permits : "
+                + semaphore.availablePermits());
+
+        MyATMThread t1 = new MyATMThread("A");
+        t1.start();
+
+        MyATMThread t2 = new MyATMThread("B");
+        t2.start();
+
+        MyATMThread t3 = new MyATMThread("C");
+        t3.start();
+
+        MyATMThread t4 = new MyATMThread("D");
+        t4.start();
+
+        MyATMThread t5 = new MyATMThread("E");
+        t5.start();
+
+        MyATMThread t6 = new MyATMThread("F");
+        t6.start();
+
+    }
+}
+=============================================================================================
+ Q9 Write a program to demonstrate the use of CountDownLatch
+
+package Threading;
+import java.util.concurrent.CountDownLatch;
+public class Q9
+{
+    public static void main(String args[])
+            throws InterruptedException
+    {
+        CountDownLatch latch = new CountDownLatch(4);
+        Worker first = new Worker(1000, latch,
+                "WORKER-1");
+        Worker second = new Worker(2000, latch,
+                "WORKER-2");
+        Worker third = new Worker(3000, latch,
+                "WORKER-3");
+        Worker fourth = new Worker(4000, latch,
+                "WORKER-4");
+        first.start();
+        second.start();
+        third.start();
+        fourth.start();
+
+        // The main task waits for four threads
+        latch.await();
+
+        // Main thread has started
+        System.out.println(Thread.currentThread().getName() +
+                " has finished");
+    }
+}
+
+class Worker extends Thread
+{
+    private int delay;
+    private CountDownLatch latch;
+
+    public Worker(int delay, CountDownLatch latch,
+                  String name)
+    {
+        super(name);
+        this.delay = delay;
+        this.latch = latch;
+    }
+
+    @Override
+    public void run()
+    {
+        try
+        {
+            Thread.sleep(delay);
+            latch.countDown();
+            System.out.println(Thread.currentThread().getName()
+                    + " finished");
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+=====================================================================================================
+ Q10 Write a program which creates deadlock between 2 threads
+
+package Threading;
+
+public class Q10 {
+
+    final Object obj1=new Object();
+    final Object obj2=new Object();
+    String str1 = "Hello World";
+    String str2 = "Hi There";
+
+    Thread trd1 = new Thread("My Thread 1"){
+        public void run(){
+            while(true){
+                synchronized(obj1){
+                    synchronized(obj2){
+                        System.out.println(str1);
+                    }
+                }
+            }
+        }
+    };
+
+    Thread trd2 = new Thread("My Thread 2"){
+        public void run(){
+            while(true){
+                synchronized(obj1){
+                    synchronized(obj2){
+                        System.out.println(str2);
+                    }
+                }
+            }
+        }
+    };
+
+    public static void main(String a[]){
+        Q10 deadlock = new Q10();
+        deadlock.trd1.start();
+        deadlock.trd2.start();
+    }
+}
+==============================================================================================
+
