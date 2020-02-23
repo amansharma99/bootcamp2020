@@ -1,0 +1,451 @@
+Q1 Write Java code to define List . Insert 5 floating point numbers in List, and using an iterator, find the sum of the numbers in List.
+package Collection;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Q1
+{
+    public static void main(String[] args)
+    {
+        float a=0.0f;
+        ArrayList<Float> list1=new ArrayList<Float>();
+        System.out.println("Enter 5 Elements: ");
+        Scanner sc=new Scanner(System.in);
+        for(int i=0;i<5;i++)
+        {
+         list1.add(sc.nextFloat());
+        }
+        System.out.println("Entered values are:");
+        for(int i=0;i<list1.size();i++)
+        {
+            System.out.println(+list1.get(i));
+        }
+        for(int i=0;i<list1.size();i++)
+        {
+            a=a+list1.get(i);
+        }
+        System.out.println("Sum is :"+a);
+    }
+}
+============================================================================================================================
+Q2 Write a method that takes a string and returns the number of unique characters in the string.
+package Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Q2 {
+    public static void main(String[] args) {
+        int count = 0;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter String");
+
+        String s = sc.nextLine();
+
+
+        char c[] = s.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < c.length; i++) {
+            if (Character.isWhitespace(c[i]) == false) {
+                if (map.containsKey(c[i])) {
+                    map.put(c[i], map.get(c[i]) + 1);
+                } else {
+                    map.put(c[i], 1);
+                }
+            }
+        }
+        for (Map.Entry m : map.entrySet()) {
+            if ((int) m.getValue() == 1) {
+                System.out.println(m.getKey() + " : " + m.getValue());
+                count++;
+            }
+
+        }
+        System.out.println("Unique Elements:" + count);
+    }
+}
+================================================================================================================================
+Q3 Write a method that takes a string and print the number of occurrence of each character characters in the string.
+package Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Q3
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("enter the string");
+        String s = sc.nextLine();
+        char c[] = s.toCharArray();
+        Map<Character,Integer> map = new HashMap<>();
+        for (int i=0;i<c.length;i++)
+        {
+            if(Character.isWhitespace(c[i])==false) {
+                if (map.containsKey(c[i])) {
+                    map.put(c[i], map.get(c[i]) + 1);
+                } else {
+                    map.put(c[i], 1);
+                }
+            }
+        }
+        for(Map.Entry m:map.entrySet())
+        {
+            System.out.println(m.getKey()+" : "+m.getValue());
+        }
+    }
+===========================================================================================================================
+Q4 Write a program to sort HashMap by value.
+package Collection;
+import java.util.*;
+import java.lang.*;
+
+public class Q4 {
+
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
+    {
+        List<Map.Entry<String, Integer> > list =
+                new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+            public int compare(Map.Entry<String, Integer> o1,
+                               Map.Entry<String, Integer> o2)
+            {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+        HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+    public static void main(String[] args)
+    {
+        HashMap<String, Integer> hm = new HashMap<String, Integer>();
+        hm.put("Aman", 45);
+        hm.put("Sham", 2);
+        hm.put("Ram", 22);
+        hm.put("Robert", 44);
+        hm.put("Manish", 56);
+        hm.put("John", 5);
+        hm.put("Clarence", 98);
+        Map<String, Integer> hm1 = sortByValue(hm);
+        for (Map.Entry<String, Integer> en : hm1.entrySet()) {
+            System.out.println("Key = " + en.getKey() +
+                    ", Value = " + en.getValue());
+        }
+    }
+}
+====================================================================================================================================
+Q5 Write a program to sort Employee objects based on highest salary using Comparator. Employee class{ Double Age; Double Salary; String Name
+package Collection;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class Q5 {
+    public static void main(String[] args) {
+        ArrayList<Employee> ar=new ArrayList<Employee>();
+        ar.add(new Employee("aman",23.0,22000.0));
+        ar.add(new Employee("manish",21.0,15000.0));
+        ar.add(new Employee("manna",15.0,35000.0));
+        ar.add(new Employee("mohit",26.0,22000.0));
+        ar.add(new Employee("ishika",24.0,32000.0));
+        ar.add(new Employee("amisha",31.0,41000.0));
+        Collections.sort(ar, new CompareBySalary());
+        for(int i=0;i<ar.size();i++){
+            System.out.println(ar.get(i));
+        }
+    }
+}
+class Employee {
+    String Name;
+    Double Age;
+    Double Salary;
+    Employee(String n, Double a, Double s){
+        this.Name=n;
+        this.Age=a;
+        this.Salary=s;
+    }
+    public String toString(){
+        return Name+" "+Age+" "+Salary;
+    }
+}
+class CompareBySalary implements Comparator<Employee>{
+    public int compare(Employee e1, Employee e2){
+        if(e1.Salary>e2.Salary)
+            return -1;
+        else if(e1.Salary<e2.Salary)
+            return 1;
+        else
+            return 0;
+    }
+}
+=======================================================================================================================================
+Q6 Write a program to sort the Student objects based on Score , if the score are same then sort on First Name . Class Student{ String Name; Double Score; Double Age
+
+package Collection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class Q6 {
+    public static void main(String[] args) {
+        ArrayList<Employee> ar=new ArrayList<Employee>();
+        ar.add(new Employee("ankit",20.0, 80.0));
+        ar.add(new Employee("sagar",25.0, 71.0));
+        ar.add(new Employee("manna",9.0, 88.0));
+        ar.add(new Employee("aman",23.0, 85.0));
+        ar.add(new Employee("ishika",22.0, 66.0));
+        ar.add(new Employee("aaman",21.0, 85.0));
+        ar.add(new Employee("neha", 23.0, 85.0));
+        Collections.sort(ar, new CompareBySalary());
+        for(int i=0;i<ar.size();i++){
+            System.out.println(ar.get(i));
+        }
+    }
+}
+class Student{
+    String name;
+    Double Age;
+    Double Score;
+    Student(String n, Double s, Double a){
+        this.name=n;
+        this.Score=s;
+        this.Age=a;
+    }
+    public String toString(){
+        return name+" "+Score+" "+Age;
+    }
+}
+class CompareByScore implements Comparator<Student> {
+    public int compare(Student e1, Student e2){
+        if(e1.Score>e2.Score)
+            return -1;
+        else if(e1.Score<e2.Score)
+            return 1;
+        else
+            return new NameComparator().compare(e1, e2);
+    }
+}
+class NameComparator implements Comparator<Student> {
+    public int compare(Student e1, Student e2){
+        return e2.name.compareTo(e1.name);
+    }
+}
+===========================================================================================================================================
+Q7 Print the elements of an array in the decreasing frequency if 2 numbers have same frequency then print the one which came first.
+package Collection;
+import java.util.*;
+import java.util.Map.Entry;
+
+public class Q7 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Size");
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        System.out.println("Enter Array");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        TreeMap<Integer, Integer> tm = new TreeMap<Integer, Integer>();
+        for (int a : arr) {
+            if (tm.containsKey(a)) {
+                tm.put(a, tm.get(a) + 1);
+            } else
+                tm.put(a, 1);
+        }
+
+        System.out.println("Before Sorting: ");
+        for (Entry entry : tm.entrySet()) {
+            System.out.println(entry.getKey() + "\t" + entry.getValue());
+        }
+        sortMapByValue(tm);
+    }
+
+    static void sortMapByValue(TreeMap<Integer, Integer> m) {
+        List<Entry<Integer, Integer>> ll = new LinkedList<Entry<Integer, Integer>>(m.entrySet());
+        Collections.sort(ll, new Comparator<Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
+                if (o1.getValue() > o2.getValue())
+                    return -1;
+                else if (o1.getValue() < o2.getValue())
+                    return 1;
+                else
+                    return 0;
+            }
+        });
+
+        //  System.out.println("safsafsdf"+ll);
+        System.out.println("After Sorting: ");
+        for (Entry entry : ll) {
+            System.out.println(entry.getKey() + "\t" + entry.getValue());
+        }
+
+    }
+}
+========================================================================================================================================
+Q8 Design a Data Structure SpecialStack that supports all the stack operations like push(), pop(), isEmpty(), isFull() and an additional operation getMin() which should return minimum element from the SpecialStack. (Expected complexity ­ O(1))
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
+public class Q8
+{
+    static int top=-1;
+    static int size=5;
+    static int top_one=-1;
+    static int i;
+    List<Integer> list = new ArrayList<>();
+    List<Integer> minlist = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
+    public void push(int x)
+    {
+        if (isFull())
+            System.out.println("stack is already full,cannot add more elements");
+        else {
+            top++;
+            list.add(top,x);
+            System.out.println(x+" is added to the stack");
+            if (isMinListEmpty())
+            {
+                top_one++;
+                minlist.add(top_one,x);
+            }
+            else
+                {
+                   if(minlist.get(top_one)>=x)
+                   {
+                       top_one++;
+                       minlist.add(top_one,x);
+                   }
+                }
+        }
+    }
+    public void pop()
+    {
+        if (isEmpty())
+        {
+            System.out.println("stack is already empty,cannot remove elements");
+        }
+        else
+        {
+            if(list.get(top)==minlist.get(top_one))
+            {
+
+                  minlist.remove(top_one);
+                  top_one--;
+            }
+            System.out.println(list.get(top)+" is removed from the stack");
+            list.remove(top);
+            top--;
+
+        }
+
+    }
+    public void peek()
+    {
+        if (isEmpty())
+        {
+            System.out.println("stack is empty,no elements to display");
+        }
+        else
+        {
+            System.out.println("top element is "+list.get(top));
+        }
+    }
+    public boolean isEmpty()
+    {
+       if(top==-1)
+       return true;
+       else
+           return false;
+    }
+    public boolean isFull()
+    {
+        if (top==size-1)
+        return true;
+        else
+            return false;
+    }
+
+    public boolean isMinListEmpty()
+    {
+        if(top_one==-1)
+            return true;
+        else
+            return false;
+    }
+    public void getMinimun()
+    {
+        if(minlist.isEmpty())
+        {
+            System.out.println("stack is already empty");
+
+        }
+        else {
+            System.out.println("minimum element is "+minlist.get(top_one));
+        }
+    }
+
+    public void menu() {
+        do {
+            System.out.println("Enter 1 to Push: ");
+            System.out.println("Enter 2 to Pop: ");
+            System.out.println("Enter 3 for isEmpty : ");
+            System.out.println("Enter 4 for isFull: ");
+            System.out.println("Enter 5 to getMin: ");
+            System.out.println("Enter 6 for peek:");
+            System.out.println("Enter any to break: ");
+            System.out.print("Enter value: ");
+                i = sc.nextInt();
+
+            sc.nextLine();
+
+            switch (i) {
+                case 1:
+                    System.out.print("Enter value to push: ");
+                    int x = sc.nextInt();
+                    push(x);
+                    break;
+                case 2:
+                    pop();
+                    break;
+                case 3:
+                    if (isEmpty())
+                        System.out.println("stack is empty");
+                    else System.out.println("stack is not empty");
+                    break;
+                case 4:
+                    if (isFull())
+                        System.out.println("stack is full");
+                    else System.out.println("stack is not full");
+                    break;
+                case 5:
+                    getMinimun();
+                    break;
+                case 6:
+                    peek();
+                    break;
+                default:
+                    break;
+            }
+
+        }while(i<7);
+    }
+        public static void main (String[]args)
+        {
+         Q8 q = new Q8();
+            System.out.println("enter size of the stack");
+            size = sc.nextInt();
+         q.menu();
+        }
+
+    }
+==================================================================================================================================
+
