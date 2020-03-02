@@ -24,7 +24,7 @@ public class DietPlannerTest {
         System.out.println("Task Finished");
     }
     @Test
-    void shouldReturnCorrectDietWhenCorrectCoder()
+    void should_return_CorrectDiet_if_CorrectCoder()
     {
         //given
         Coder coder=new Coder(1.82,75,26,Gender.MALE);

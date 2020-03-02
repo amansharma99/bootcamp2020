@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BMICalculatorTest {
 
     @Test
-    void dietIsRecmmended(){
+    void is_diet_Recmmended(){
         boolean recommended=true;
         //given
         double weight=70.0;
@@ -25,7 +25,7 @@ class BMICalculatorTest {
     }
 
     @Test
-    void shouldReturnCoderWithWorstBMIWhenListIsNotEmpty()
+    void should_return_WorstBMI_if_List_NotEmpty()
     {
         //given
         List<Coder> list=new ArrayList<>();
@@ -45,7 +45,7 @@ class BMICalculatorTest {
 
     }
     @Test
-    void shouldReturnNullWithWorstBMIWhenListIsEmpty()
+    void should_returnNull_forWorstBMI_whenListIsEmpty()
     {
         //given
         List<Coder> list=new ArrayList<>();
@@ -58,7 +58,7 @@ class BMICalculatorTest {
     }
 
     @Test
-    void shouldReturnCorrectBMIScoreArrrayWhenListIsNotEmpty()
+    void should_return_BMIScoreArrray_if_ListIsNotEmpty()
     {
         //given
         List<Coder> list=new ArrayList<>();

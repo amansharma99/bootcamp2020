@@ -20,7 +20,7 @@ public class FirstTest {
     }
 
     @Test
-    void shouldReturnNewStringWhenSubstringFound() {
+    void should_return_NewString_ifSubstringexist() {
         //given
         String mainString = "Aman Sharma Aman Sharma";
         String findstring = "Sharma";
@@ -35,12 +35,12 @@ public class FirstTest {
     }
 
     @Test
-    void shouldReturnOriginalStringWhenSubstringNotFound() {
+    void should_return_mainString_if_SubstringNotFound() {
         //given
-        String mainString = "this is ankit sagar";
+        String mainString = "Aman Sharma";
         String findstring = "kumar";
         String replacedString = "ttn";
-        String expectedString = "this is ankit sagar";
+        String expectedString = "Aman Sharma";
 
         //when
         String calculateString = first.replaceSubString(mainString, findstring, replacedString);
@@ -51,7 +51,7 @@ public class FirstTest {
     }
 
     @Test
-    void shouldReturnOddElementOnlyWhenOddElementExistAfterFilterEvenElement() {
+    void should_return_OddElemenls_afterfilter() {
         //given
         List<Integer> list = new ArrayList<>();
         for (int i = 1; i < 6; i++) {
@@ -71,7 +71,7 @@ public class FirstTest {
     }
 
     @Test
-    void shouldThrowExceptionInvalidInputWhenListNotExist() {
+    void should_ThrowException_InvalidInput_if_ListNotExist() {
         //given
         List<BigDecimal> list = null;
         //List<BigDecimal> list=new ArrayList<>();
@@ -89,7 +89,7 @@ public class FirstTest {
     }
 
     @Test
-    void shouldThrowExceptionInvalidInputWhenListIsEmpty() {
+    void should_ThrowException_InvalidInput_if_ListIsEmpty() {
         //given
         List<BigDecimal> list = new ArrayList<>();
 
@@ -106,7 +106,7 @@ public class FirstTest {
     }
 
     @Test
-    void shouldReturnAveragevalueWhenListContainsElement() {
+    void should_returnAveragevalue_if_ListContainsElement() {
 
         //given
         List<BigDecimal> list = new ArrayList<>();
@@ -126,9 +126,9 @@ public class FirstTest {
     }
 
     @Test
-    void shouldReturnTrueWhenStringIspalindrome() {
+    void should_return_True_if_String_Ispalindrome() {
         //given
-        String originalinput = "cdac";
+        String originalinput = "naman";
 
         //when
         boolean palindromecheck = first.isPallindrome(originalinput);
