@@ -1,0 +1,3 @@
+By using @Transactional spring handles lazy loading problem
+@Transactionnal makes sure that the ACID property is followed
+@Transactional is used to perform DML queries
