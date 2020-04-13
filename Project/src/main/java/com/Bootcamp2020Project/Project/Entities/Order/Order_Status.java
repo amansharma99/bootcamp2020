@@ -1,51 +1,73 @@
 package com.Bootcamp2020Project.Project.Entities.Order;
 
-import com.Bootcamp2020Project.Project.Entities.Product.Product;
-import com.Bootcamp2020Project.Project.Entities.Product.Product_Variation;
-
 import javax.persistence.*;
 
-@Entity
-public class Order_Status {
+enum FROM_STATUS
+{
+    ORDER_PLACED,
+    CANCELLED,
+    ORDER_REJECTED,
+    ORDER_CONFIRMED,
+    ORDER_SHIPPED,
+    DELIVERED,
+    RETURN_REQUESTED,
+    RETURN_REJECTED,
+    RETURN_APPROVED,
+    PICK_UP_INITIATED,
+    PICK_UP_COMPLETED,
+    REFUND_INITIATED,
+    REFUND_COMPLETED
+}
+enum TO_STATUS
+{
+    CANCELLED,
+    ORDER_CONFIRMED,
+    ORDER_REJECTED,
+    REFUND_INITIATED,
+    CLOSED,
+    ORDER_SHIPPED,
+    DELIVERED,
+    RETURN_REQUESTED,
+    RETURN_REJECTED,
+    RETURN_APPROVE,
+    PICK_UP_INITIATED,
+    PICK_UP_COMPLETED,
+
+    REFUND_COMPLETED,
+
+}@Entity
+@Table(name = "ORDER_STATUS")
+class OrderStatus {
     @Id
-    private Integer id;
-    private String From_Status;
-    private String To_Status;
-    private String transaction_Comment;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ProductId")
-    @MapsId
-private Product product;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "TRANSITION_NOTES_COMMENTS")
+    private String transition_notes_comments;
+    @OneToOne
+    @JoinColumn(name = "ORDER_PRODUCT_ID")
+    private Ordered_Product orderProduct;
 
-    public Product getProduct() {
-        return product;
+    public Long getId() {
+        return id;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getFrom_Status() {
-        return From_Status;
+    public Ordered_Product getOrderProduct() {
+        return orderProduct;
     }
 
-    public void setFrom_Status(String from_Status) {
-        From_Status = from_Status;
+    public void setOrderProduct(Ordered_Product orderProduct) {
+        this.orderProduct = orderProduct;
     }
 
-    public String getTo_Status() {
-        return To_Status;
+    public String getTransition_notes_comments() {
+        return transition_notes_comments;
     }
 
-    public void setTo_Status(String to_Status) {
-        To_Status = to_Status;
-    }
-
-    public String getTransaction_Comment() {
-        return transaction_Comment;
-    }
-
-    public void setTransaction_Comment(String transaction_Comment) {
-        this.transaction_Comment = transaction_Comment;
+    public void setTransition_notes_comments(String transition_notes_comments) {
+        this.transition_notes_comments = transition_notes_comments;
     }
 }
