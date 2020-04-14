@@ -1,36 +1,26 @@
 package com.Bootcamp2020Project.Project.Entities.Order;
 
 import com.Bootcamp2020Project.Project.Entities.Product.ProductVariation;
-import com.Bootcamp2020Project.Project.Entities.User.Users;
 
 import javax.persistence.*;
 
-
 @Entity
-public class Cart {
+public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "CustomerUserId")
-    private Users users;
-
     private Integer quantity;
 
-    private Boolean isWishlistItem;
-
-    public Boolean getWishlistItem() {
-        return isWishlistItem;
-    }
-
-    public void setWishlistItem(Boolean wishlistItem) {
-        isWishlistItem = wishlistItem;
-    }
-
-    @OneToOne
+    private Double price;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "OrderId")
+    private Orders orders;
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ProductVariationId")
     private ProductVariation productVariation;
+    @OneToOne(mappedBy = "orderProduct")
+    private OrderStatus orderStatus;
 
     public Long getId() {
         return id;
@@ -38,14 +28,6 @@ public class Cart {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Users getUser() {
-        return users;
-    }
-
-    public void setUser(Users user) {
-        this.users = users;
     }
 
     public Integer getQuantity() {
@@ -56,6 +38,21 @@ public class Cart {
         this.quantity = quantity;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
 
     public ProductVariation getProductVariation() {
         return productVariation;

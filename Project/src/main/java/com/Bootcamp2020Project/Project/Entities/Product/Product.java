@@ -1,99 +1,87 @@
 package com.Bootcamp2020Project.Project.Entities.Product;
-
-import com.Bootcamp2020Project.Project.Entities.Order.Order_Status;
-import com.Bootcamp2020Project.Project.Entities.User.User_Seller;
+import com.Bootcamp2020Project.Project.Entities.User.Seller;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Product {
+public class Product  {
+
     @Id
-    @GeneratedValue
-    private Integer productId;
-    @ManyToOne
-    @JoinColumn(name = "Seller")
-    @MapsId
-    private User_Seller user_seller;
-    private String productName;
-    private String productDesc;
-    private boolean isCancellable;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+    private String description;
+    private String brand;
+
     private boolean isReturnable;
+    private boolean isCancellable;
     private boolean isActive;
-    private String Brand;
+    private boolean isDeleted;
+
     @ManyToOne
-    @JoinColumn(name = "Category")
-    private Product_Category product_category;
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Product_Review> product_reviews;
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Product_Variation> product_variations;
+    @JoinColumn(name = "SellerUserId")
+    private Seller seller;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Order_Status order_status;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<ProductVariation> variations;
 
-    public Order_Status getOrder_status() {
-        return order_status;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CategoryId")
+    private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductReview> reviews;
+
+    {
+        isActive = true;
+        isCancellable = true;
+        isReturnable = true;
+        isDeleted = false;
     }
 
-    public void setOrder_status(Order_Status order_status) {
-        this.order_status = order_status;
+    public Product() {
     }
 
-    public Set<Product_Variation> getProduct_variations() {
-        return product_variations;
+    public Product(String name, String description, String brand) {
+        this.name = name;
+        this.description = description;
+        this.brand = brand;
     }
 
-    public void setProduct_variations(Set<Product_Variation> product_variations) {
-        this.product_variations = product_variations;
+    public Long getId() {
+        return id;
     }
 
-    public Set<Product_Review> getProduct_reviews() {
-        return product_reviews;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setProduct_reviews(Set<Product_Review> product_reviews) {
-        this.product_reviews = product_reviews;
+    public String getName() {
+        return name;
     }
 
-    public Product_Category getProduct_category() {
-        return product_category;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setProduct_category(Product_Category product_category) {
-        this.product_category = product_category;
+    public String getDescription() {
+        return description;
     }
 
-    public User_Seller getUser_seller() {
-        return user_seller;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setUser_seller(User_Seller user_seller) {
-        this.user_seller = user_seller;
+    public String getBrand() {
+        return brand;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductDesc() {
-        return productDesc;
-    }
-
-    public void setProductDesc(String productDesc) {
-        this.productDesc = productDesc;
-    }
-
-    public boolean isCancellable() {
-        return isCancellable;
-    }
-
-    public void setCancellable(boolean cancellable) {
-        isCancellable = cancellable;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public boolean isReturnable() {
@@ -104,6 +92,14 @@ public class Product {
         isReturnable = returnable;
     }
 
+    public boolean isCancellable() {
+        return isCancellable;
+    }
+
+    public void setCancellable(boolean cancellable) {
+        isCancellable = cancellable;
+    }
+
     public boolean isActive() {
         return isActive;
     }
@@ -112,11 +108,81 @@ public class Product {
         isActive = active;
     }
 
-    public String getBrand() {
-        return Brand;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setBrand(String brand) {
-        Brand = brand;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Set<ProductVariation> getVariations() {
+        return variations;
+    }
+
+    public void setVariations(Set<ProductVariation> variations) {
+        this.variations = variations;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<ProductReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ProductReview> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void addVariation(ProductVariation variation) {
+        if (variation != null) {
+            if (variations == null)
+                variations = new HashSet<>();
+
+            variations.add(variation);
+            variation.setProduct(this);
+        }
+    }
+
+    public void addReview(ProductReview review) {
+        if (review != null) {
+            if (reviews == null)
+                reviews = new ArrayList<>();
+
+            reviews.add(review);
+
+            review.setProduct(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", brand='" + brand + '\'' +
+                ", isReturnable=" + isReturnable +
+                ", isCancelleable=" + isCancellable +
+                ", isActive=" + isActive +
+                ", isDeleted=" + isDeleted +
+                ", seller=" + seller +
+                ", variations=" + variations +
+                ", category=" + category +
+                ", reviews=" + reviews +
+                '}';
     }
 }

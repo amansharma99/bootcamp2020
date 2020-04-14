@@ -1,37 +1,76 @@
 package com.Bootcamp2020Project.Project.Entities.User;
 
+import com.Bootcamp2020Project.Project.Entities.User.Users;
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Role {
+public class Role implements GrantedAuthority {
+
     @Id
-    @GeneratedValue
-    private Integer roleId;
+    private Long id;
+    @Column(unique = true)
     private String authority;
-    @OneToOne(mappedBy = "roleId",cascade = CascadeType.ALL)
-    private User_Role user_role;
+    private boolean isDeleted = false;
+    @ManyToMany(mappedBy = "roles")
+    private Set<Users> users;
 
-    public User_Role getUser_role() {
-        return user_role;
+    public Boolean isDeleted() {
+        return isDeleted();
     }
 
-    public void setUser_role(User_Role user_role) {
-        this.user_role = user_role;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public Role() {
+
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
+    public Role(Long id, String authority) {
+        this.id = id;
         this.authority = authority;
+    }
+
+
+    @Override
+    public String getAuthority() {
+        return null;
+    }
+
+    public Set<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<Users> users) {
+        this.users = users;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void addUser(Users users1) {
+        if (users == null)
+            users = new HashSet<>();
+
+        users.add(users1);
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", authority='" + authority + '\'' +
+                ", isDeleted=" + isDeleted +
+                ", users=" + users +
+                '}';
     }
 }
