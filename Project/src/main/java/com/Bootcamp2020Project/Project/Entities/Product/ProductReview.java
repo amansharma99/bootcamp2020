@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class ProductReview {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String review;
     private Double rating;
@@ -17,7 +17,7 @@ public class ProductReview {
 
     @ManyToOne
     @JoinColumn(name = "CustomerUserId")
-    private Customer author;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "ProductId")
@@ -57,11 +57,11 @@ public class ProductReview {
     }
 
     public Customer getAuthor() {
-        return author;
+        return customer;
     }
 
-    public void setAuthor(Customer author) {
-        this.author = author;
+    public void setAuthor(Customer customer) {
+        this.customer = customer;
     }
 
     public Product getProduct() {
@@ -77,7 +77,7 @@ public class ProductReview {
         return "ProductReview{" +
                 "review='" + review + '\'' +
                 ", rating=" + rating +
-                ", author=" + author +
+                ", customer=" + customer +
                 ", product=" + product +
                 '}';
     }

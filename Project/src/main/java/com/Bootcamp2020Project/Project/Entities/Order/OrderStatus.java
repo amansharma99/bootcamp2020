@@ -41,7 +41,7 @@ enum TO_STATUS
 @Table(name = "OrderStatus")
 public class OrderStatus  {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String TransitionNotesComments;

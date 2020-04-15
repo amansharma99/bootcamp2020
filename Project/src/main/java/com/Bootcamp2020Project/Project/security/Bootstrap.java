@@ -1,7 +1,7 @@
 package com.Bootcamp2020Project.Project.security;
 
 
-import com.Bootcamp2020Project.Project.Entities.Admin;
+import com.Bootcamp2020Project.Project.Entities.User.Admin;
 import com.Bootcamp2020Project.Project.Entities.User.Customer;
 import com.Bootcamp2020Project.Project.Entities.User.Role;
 import com.Bootcamp2020Project.Project.Entities.User.Seller;

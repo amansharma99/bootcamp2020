@@ -1,4 +1,4 @@
-package com.Bootcamp2020Project.Project.Entities;
+package com.Bootcamp2020Project.Project.Entities.User;
 
 import com.Bootcamp2020Project.Project.Entities.User.Users;
 
