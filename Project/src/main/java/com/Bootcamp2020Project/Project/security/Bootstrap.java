@@ -41,8 +41,8 @@ public class Bootstrap implements ApplicationRunner {
             admin1.addRole(seller);
             admin1.setActive(true);
 
-            Customer customer1 = new Customer("chiraggupta@gmai.com", "chirag", "",
-                    "gupta","9876543210" );
+            Customer customer1 = new Customer("chiraggupta@gmai.com", "Chirag", "",
+                    "Gupta","9876543210" );
 
             customer1.setPassword(passwordEncoder.encode("pass"));
 
